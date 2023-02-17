@@ -1,0 +1,77 @@
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --email-width: 0px;
+  --email-height: 0px;
+  --email-border-lr: 300px;
+  --email-border-tb: 200px;
+  --email-top-index: calc(0px - var(--email-border-tb));
+  --email-bg: pink;
+  --letter-width: 500px;
+  --letter-height: 250px;
+  --letter-bg: aqua;
+  --letter-add-height: 250px;
+}
+
+body {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+
+
+}
+
+.email {
+  position: relative;
+  width: var(--email-width);
+  height: var(--email-height);
+  border-width: var(--email-border-tb) var(--email-border-lr);
+  border-style: solid;
+  border-color: transparent pink pink rgba(200, 71, 71, 0.621);
+  perspective: 1000rem;
+  transform-style: preserve-3d;
+}
+
+.email::before {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform-origin: top center;
+  border-width: var(--email-border-tb) var(--email-border-lr);
+  border-style: solid;
+  border-color: pink transparent transparent;
+  transform: translate3d(-50%, -50%, var(--email-top-index)) rotateX(45deg);
+  transition: transform 1s ease-out;
+}
+
+
+.email>.letter {
+  position: absolute;
+  --change-width: 0px;
+  top: calc(var(--email-border-tb) - var(--letter-height) - var(--change-width));
+  left: 0;
+  width: var(--letter-width);
+  height: calc(var(--letter-height) + var(--change-width));
+  background-color: var(--letter-bg);
+  transform: translate3d(-50%, 0, -1px);
+  text-align: center;
+  transition: all 1.2s ease-out;
+}
+
+.email:hover::before {
+  transform: translate3d(-50%, -50%, -2px) rotateX(180deg);
+}
+
+.email:hover .letter {
+  --change-width: var(--letter-add-height);
+}
